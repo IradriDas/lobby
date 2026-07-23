@@ -1,7 +1,9 @@
 import { ReactNode } from 'react'
-// import { Children } from 'react'
+import { auth } from '@clerk/nextjs/server'
 
-const RootLayout = ({children}:{children:ReactNode}) => {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  await auth.protect()
+
   return (
     <main>
       {children}

@@ -122,10 +122,170 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.glassmorphism2 {
+  background: rgba(18, 17, 17, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Clerk UserButton Popover Overrides ─────────────────────────────────── */
+
+/* Hide "Secured by Clerk" + "Development mode" footer */
+.cl-userButtonPopoverFooter {
+  display: none !important;
+}
+
+/* Card shape */
+.cl-userButtonPopoverCard {
+  background: #1c1f2e !important;
+  border: 1px solid #252a41 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden !important;
+  min-width: 240px !important;
+}
+
+/* Header area (avatar + name/email) */
+.cl-userButtonPopoverHeader {
+  padding: 16px !important;
+  border-bottom: 1px solid #252a41 !important;
+  background: linear-gradient(135deg, #1e2235 0%, #1c1f2e 100%) !important;
+}
+
+/* Name */
+.cl-userPreviewMainIdentifier {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+/* Email */
+.cl-userPreviewSecondaryIdentifier {
+  color: #9ca3af !important;
+  font-size: 0.75rem !important;
+}
+
+/* Actions list container */
+.cl-userButtonPopoverActions {
+  padding: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+/* Each menu item row */
+.cl-userButtonPopoverActionButton {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.cl-userButtonPopoverActionButton:hover {
+  background: rgba(14, 120, 249, 0.08) !important;
+  box-shadow: 0 0 0 1px rgba(14, 120, 249, 0.25) !important;
+  color: #93c5fd !important;
+}
+
+/* Menu item label — broad selectors to cover Clerk v7 class name variations */
+.cl-userButtonPopoverActionButtonText,
+[class*="cl-userButtonPopoverActionButton"] span,
+[class*="cl-userButtonPopoverActionButton"] p,
+[class*="ActionButtonText"],
+.cl-userButtonPopoverActionButton>span {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: color 0.2s ease !important;
+}
+
+.cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButton:hover span,
+.cl-userButtonPopoverActionButton:hover p {
+  color: #93c5fd !important;
+}
+
+/* Icon badge pill */
+.cl-userButtonPopoverActionButtonIconBox {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 8px !important;
+  background: rgba(14, 120, 249, 0.12) !important;
+  transition: background 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonIconBox {
+  background: rgba(14, 120, 249, 0.25) !important;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: #60a5fa !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* ── Clerk UserProfile Modal: Badge & Three Dots ────────────────────────── */
+
+/* "primary" badge — text and dots */
+.cl-badge {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.cl-socialButtonsBlockButtonText {
+  color: white !important;
+}
+
+.cl-badge__primary {
+  color: blue !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Three-dots (⋯) action button next to email/connected account rows */
+.cl-profileSectionPrimaryButton,
+[class*="cl-profileSection"] button[aria-label],
+[class*="cl-actionButton"],
+[class*="cl-profileSectionItem"] button {
+  color: #ffffff !important;
+}
+
+[class*="cl-profileSection"] button[aria-label] svg,
+[class*="cl-actionButton"] svg,
+[class*="cl-profileSectionItem"] button svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
 }
