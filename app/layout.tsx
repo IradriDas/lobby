@@ -4,6 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toast"
 
+import "@stream-io/video-react-sdk/dist/css/styles.css";
+
 const inter = Inter({ subsets: ["latin"] });
 const geistSans = Geist({
   variable: "--font-geist-sans",
