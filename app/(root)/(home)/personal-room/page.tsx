@@ -57,7 +57,7 @@ const PersonalRoom = () => {
     return (
         <section className="flex size-full flex-col gap-10 text-white">
             <h1 className="text-xl font-bold lg:text-3xl">Personal Meeting Room</h1>
-            <div className="flex w-full flex-col gap-8 xl:max-w-[900px]">
+            <div className="flex w-full flex-col gap-8 xl:max-w-225">
                 <Table title="Topic" description={`${user?.emailAddresses}'s Meeting Room`} />
                 <Table title="Meeting ID" description={meetingId!} />
                 <Table title="Invite Link" description={meetingLink} />
