@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/toast"
 
 const inter = Inter({ subsets: ["latin"] });
 const geistSans = Geist({
@@ -50,7 +51,10 @@ export default function RootLayout({
             logoImage: 'h-28 w-auto object-contain'
           }
         }}>
-        <body className={`${inter.className} bg-[#1c1f2e]`}>{children}</body>
+        <body className={`${inter.className} bg-[#1c1f2e]`}>
+          {children}
+          <Toaster />
+        </body>
       </ClerkProvider>
     </html>
   );
