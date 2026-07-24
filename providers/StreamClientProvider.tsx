@@ -24,7 +24,10 @@ export const StreamVideoProvider = ({
 
   useEffect(() => {
     if (!isLoaded || !user) return;
-    if (!apiKey) throw new Error("Stream API key is not defined");
+    if (!apiKey) {
+      console.error("Stream API key is not defined");
+      return;
+    }
 
     const streamUser: User = {
       id: user.id,
@@ -44,7 +47,7 @@ export const StreamVideoProvider = ({
       client.disconnectUser().catch(console.error);
       setVideoClient(undefined);
     };
-  }, [user, isLoaded]);
+  }, [user?.id, isLoaded]);
 
   if (!videoClient) return <Loader />;
 
