@@ -1,17 +1,49 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGetCalls } from '@/hooks/useGetCalls';
 import { useRouter } from 'next/navigation';
-import { CallRecording } from '@stream-io/node-sdk';
-import { Call } from '@stream-io/video-react-sdk';
+import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import MeetingCard from './MeetingCard';
 import Loader from './Loader';
+import { toast } from './ui/toast';
 
 
 const CallList = ({ type }: { type: 'upcoming' | 'recordings' | 'ended' }) => {
-    const { endedCalls, upcomingCalls, calleRecordings, isLoading } = useGetCalls();
+    const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls();
     const router = useRouter();
     const [recordings, setRecordings] = useState<CallRecording[]>([]);
+
+    useEffect(() => {
+        const fetchRecordings = async () => {
+
+            try {
+                const callData = await Promise.all(
+                    callRecordings?.map((meeting) => meeting.listRecordings()) ?? [],
+                );
+
+                const recordings = callData
+                    .filter((call) => call.recordings.length > 0)
+                    .flatMap((call) => call.recordings);
+
+                setRecordings(recordings);
+            } catch (error) {
+                console.log(error);
+
+                toast.add(
+                    {
+                        title: "Failed to Fetch Recordings",
+                        description: "Please try again later",
+                        type: "destructive"
+                    }
+                )
+            }
+        };
+
+        if (type === 'recordings') {
+            fetchRecordings();
+        }
+    }, [type, callRecordings]);
+
 
     if (isLoading) return <Loader />
 
@@ -41,6 +73,7 @@ const CallList = ({ type }: { type: 'upcoming' | 'recordings' | 'ended' }) => {
         }
     }
 
+
     const calls = getCalls();
     const noCallsMessage = getNoCallMessage();
 
@@ -50,13 +83,13 @@ const CallList = ({ type }: { type: 'upcoming' | 'recordings' | 'ended' }) => {
                 (calls && calls.length > 0) ?
                     (calls.map((meeting: Call | CallRecording) =>
                     (
-                        <MeetingCard key={(meeting as Call).id}
+                        <MeetingCard key={(meeting as Call).id || (meeting as CallRecording).filename}
                             icon={type === "ended" ?
                                 "/icons/previous.svg"
                                 : type === "upcoming" ?
                                     "/icons/upcoming.svg" : "/icons/recordings.svg"}
 
-                            title={(meeting as Call).state?.custom?.description?.substring(0, 26) || "No Description"}
+                            title={(meeting as Call).state?.custom?.description?.substring(0, 26) || (meeting as CallRecording)?.filename?.substring(0, 26) || "Personal Meetings"}
 
                             date={(meeting as Call).state?.startsAt?.toLocaleString() || (meeting as CallRecording).start_time?.toLocaleString()}
 
