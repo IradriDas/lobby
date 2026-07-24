@@ -1,14 +1,15 @@
-import { ReactNode } from 'react'
-import { auth } from '@clerk/nextjs/server'
+import { ReactNode } from "react";
+import { auth } from "@clerk/nextjs/server";
+import { StreamVideoProvider } from "@/providers/StreamClientProvider";
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-  await auth.protect()
+  await auth.protect();
 
   return (
     <main>
-      {children}
+      <StreamVideoProvider>{children}</StreamVideoProvider>
     </main>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
